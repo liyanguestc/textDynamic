@@ -91,7 +91,7 @@ var meshArray = [];
      });*/
    
     //Add Text
-    addTextMenu({
+   /* addTextMenu({
       text: "Hello",
       name: "helloworld",
       size: 15,
@@ -101,10 +101,12 @@ var meshArray = [];
       rotateX: 0,
       rotateY: 0,
       rotateZ: 0
-    });
+    });*/
    
    //add background texture
-   LEIA_setBackgroundPlane('resource/brickwall_900x600_small.jpg');
+   //LEIA_setBackgroundPlane('resource/brickwall_900x600_small.jpg');
+   
+   setForegroundPlane( 'resource/welcome_lowres.png');
  }
 
 function addTextMenu(parameters){
@@ -248,3 +250,17 @@ function LEIA_setBackgroundPlane(filename, aspect) {
     scene.add(plane);
 }
 
+function setForegroundPlane(filename) {
+	
+	var LEIA_foregroundPlaneTexture = new THREE.ImageUtils.loadTexture( filename );
+	LEIA_foregroundPlaneTexture.wrapS = LEIA_foregroundPlaneTexture.wrapT = THREE.RepeatWrapping; 
+	LEIA_foregroundPlaneTexture.repeat.set( 1, 1 );
+	var LEIA_foregroundPlaneMaterial = new THREE.MeshLambertMaterial( { map: LEIA_foregroundPlaneTexture, transparent:true, side: THREE.DoubleSide } );
+	var LEIA_foregroundPlaneGeometry;
+	//var l = 38.56;
+	var l = 38.56*0.76;
+	var ar = 420/320;
+	LEIA_foregroundPlaneGeometry = new THREE.PlaneGeometry(ar*l, l, 50, 50);
+	LEIA_foregroundPlane = new THREE.Mesh(LEIA_foregroundPlaneGeometry, LEIA_foregroundPlaneMaterial);
+	scene.add(LEIA_foregroundPlane);
+}
